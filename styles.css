@@ -7,6 +7,7 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 16px;
     line-height: 1.6;
     color: #333;
     background-color: #f4f4f4;
@@ -27,7 +28,7 @@ header h1 {
 }
 
 header p {
-    font-size: 1.1rem;
+    font-size: 1.125rem;
     opacity: 0.9;
 }
 
@@ -78,5 +79,5 @@ footer {
 }
 
 footer p {
-    font-size: 0.9rem;
+    font-size: 0.875rem;
 }

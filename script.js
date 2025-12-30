@@ -29,12 +29,33 @@ function displayBooks() {
     library.forEach((book, index) => {
         const bookCard = document.createElement('div');
         bookCard.className = 'book-card';
-        bookCard.innerHTML = `
-            <h3>${book.title}</h3>
-            <p><strong>Author:</strong> ${book.author}</p>
-            <p><strong>Pages:</strong> ${book.pages}</p>
-            <p><strong>Status:</strong> ${book.read ? 'Read' : 'Not Read'}</p>
-        `;
+        
+        const title = document.createElement('h3');
+        title.textContent = book.title;
+        
+        const authorP = document.createElement('p');
+        const authorStrong = document.createElement('strong');
+        authorStrong.textContent = 'Author:';
+        authorP.appendChild(authorStrong);
+        authorP.appendChild(document.createTextNode(' ' + book.author));
+        
+        const pagesP = document.createElement('p');
+        const pagesStrong = document.createElement('strong');
+        pagesStrong.textContent = 'Pages:';
+        pagesP.appendChild(pagesStrong);
+        pagesP.appendChild(document.createTextNode(' ' + book.pages));
+        
+        const statusP = document.createElement('p');
+        const statusStrong = document.createElement('strong');
+        statusStrong.textContent = 'Status:';
+        statusP.appendChild(statusStrong);
+        statusP.appendChild(document.createTextNode(' ' + (book.read ? 'Read' : 'Not Read')));
+        
+        bookCard.appendChild(title);
+        bookCard.appendChild(authorP);
+        bookCard.appendChild(pagesP);
+        bookCard.appendChild(statusP);
+        
         bookList.appendChild(bookCard);
     });
 }
