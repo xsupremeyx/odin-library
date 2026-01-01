@@ -8,15 +8,18 @@ function Book(id, title, author, pages, read){
     this.read = read;
 }
 
+Book.prototype.toggleRead = function() {
+    this.read = !this.read;
+}
+
 function addBookToLibrary(form){
     const id = crypto.randomUUID();
 
     const title = form.title.value.trim();
     const author = form.author.value.trim();
-    const pages = form.pages.value.trim();
-    const read = form["read-status"].value;
+    const pages = Number(form.pages.value);
+    const read = form["read-status"].value === 'read' ? true : false;
 
-    console.log(title, author, pages, read);
     if (title === '' || author === '' || pages === '') {
         alert('Please fill in all fields.');
         return;
@@ -44,7 +47,7 @@ function displayLibrary(){
             <p>Pages: ${book.pages}</p>
             <p>Read: ${book.read ? 'Yes' : 'No'}</p>
             <button class="remove-button">Remove Book</button>
-            <button class="toggle-read-button">Toggle Read Status</button>
+            <button class="toggle-read-button">${book.read ? 'Mark as Not Read' : 'Mark as Read'}</button>
         `;
         bookContainer.appendChild(bookCard);
     });
@@ -62,7 +65,6 @@ function dialogToggleHandler(){
         
     closeButton.addEventListener('click', () => {
         dialog.close();
-        console.log('Dialog closed');
     });
 }
 
@@ -84,29 +86,33 @@ function removeBookHandler(){
         if(e.target.classList.contains('remove-button')){
             const bookCard = e.target.parentElement;
             const bookId = bookCard.getAttribute('data-id');
-            console.log('Removing book with ID:', bookId);
             bookCard.classList.add('removed');
             const bookIndex = myLibrary.findIndex(book => book.id == bookId);
             if(bookIndex !== -1){
                 myLibrary.splice(bookIndex, 1);
-                displayLibrary();
+                // Adding a slight delay to allow the removal animation to be seen
+                setTimeout(() => {
+                    displayLibrary();
+                }, 100);
             }
         }
     });
 }
 
-addPreBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, true);
-addPreBookToLibrary("1984", "George Orwell", 328, false);
-addPreBookToLibrary("To Kill a Mockingbird", "Harper Lee", 281, true);
-addPreBookToLibrary("Pride and Prejudice", "Jane Austen", 279, false);
-addPreBookToLibrary("The Great Gatsby", "F. Scott Fitzgerald", 180, true);
-addPreBookToLibrary("Moby Dick", "Herman Melville", 635, false);
-addPreBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, true);
-addPreBookToLibrary("1984", "George Orwell", 328, false);
-addPreBookToLibrary("To Kill a Mockingbird", "Harper Lee", 281, true);
-addPreBookToLibrary("Pride and Prejudice", "Jane Austen", 279, false);
-addPreBookToLibrary("The Great Gatsby", "F. Scott Fitzgerald", 180, true);
-addPreBookToLibrary("Moby Dick", "Herman Melville", 635, false);
+function toggleReadStatusHandler(){
+    const bookContainer = document.querySelector('.book-card-container');
+    bookContainer.addEventListener('click', (e) => {
+        if(e.target.classList.contains('toggle-read-button')){
+            const bookCard = e.target.parentElement;
+            const bookId = bookCard.getAttribute('data-id');
+            const book = myLibrary.find(book => book.id == bookId);
+            if(book){
+                book.toggleRead();
+                displayLibrary();
+            }
+        }
+    });
+}
 addPreBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, true);
 addPreBookToLibrary("1984", "George Orwell", 328, false);
 addPreBookToLibrary("To Kill a Mockingbird", "Harper Lee", 281, true);
@@ -118,3 +124,4 @@ displayLibrary();
 dialogToggleHandler();
 bookAdderButtonHandler();
 removeBookHandler();
+toggleReadStatusHandler();

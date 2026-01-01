@@ -170,6 +170,6 @@ body{
 }
 
 .removed{
-    opacity: 0.5;
-    transform: scale(0.90);
+    opacity: 0.85;
+    transform: scale(0.98);
 }
