@@ -12,10 +12,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: var(--font-family);
 }
 
 body{
-    font-family: var(--font-family);
     background-color: var(--text-color-light);
     height: 100vh;
 }
@@ -71,6 +71,57 @@ body{
     transform: scale(0.98);
 }
 
+.add-book-dialog{
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+::backdrop{
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.add-book-form{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 400px;
+    max-height: 900px;
+    padding: var(--padding);
+    background-color: var(--text-color-light);
+    border: 3px solid var(--tertiary-color);
+    border-radius: 8px;
+    overflow-y: auto;
+    font-size: 24px;
+}
+
+.add-book-form input, .add-book-form textarea, .add-book-form select{
+    padding: 10px;
+    border: 2px solid var(--tertiary-color);
+    border-radius: 5px;
+    width: 100%;
+}
+
+.add-book-form label{
+    font-weight: bold;
+}
+
+.add-book-form button{
+    padding: 10px 15px;
+    border: 3px solid var(--tertiary-color);
+    border-radius: 8px;
+    background-color: var(--text-color-light);
+    color: var(--text-color-dark);
+    cursor: pointer;
+}
+
 .book-section{
     grid-row: 3 / 4;
     background-color: var(--secondary-color);
@@ -116,4 +167,9 @@ body{
 
 .card button:active{
     transform: scale(0.98);
+}
+
+.removed{
+    opacity: 0.5;
+    transform: scale(0.90);
 }
