@@ -27,6 +27,8 @@ This project allows users to add, display, remove, and update books dynamically 
 
 ---
 
+## Webpage:-
+https://xsupremeyx.github.io/odin-library/
 
 ---
 
@@ -54,7 +56,4 @@ The read status is toggled using a prototype method:
 ```js
 Book.prototype.toggleRead = function () {
   this.read = !this.read;
-};```
-
-## Webpage:-
-https://xsupremeyx.github.io/odin-library/
+};
