@@ -1,8 +1,8 @@
 # Odin Library 📚
 
 A simple **Library application** built using **HTML, CSS, and JavaScript** as part of *The Odin Project* curriculum.  
-This project allows users to add, display, remove, and update books dynamically using a clean, state-driven approach.
-
+This project allows users to add, display, remove, and update books dynamically using a clean, Object oriented approach.
+Version 2.0
 ---
 
 ## 🚀 Features
@@ -11,7 +11,8 @@ This project allows users to add, display, remove, and update books dynamically 
 - Display books as cards
 - Remove books from the library
 - Toggle book read / not-read status
-- Uses JavaScript objects and prototypes
+- Ver 1.0 Uses JavaScript objects and prototypes
+- Ver 2.0 Uses Classes and Modules instead, refactoring the entire project's script
 - Dynamic DOM manipulation (no page reloads)
 
 ---
@@ -51,9 +52,4 @@ Each book contains:
 - `pages`
 - `read` – boolean (`true` = Read, `false` = Not Read)
 
-The read status is toggled using a prototype method:
 
-```js
-Book.prototype.toggleRead = function () {
-  this.read = !this.read;
-};
