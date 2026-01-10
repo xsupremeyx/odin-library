@@ -21,7 +21,7 @@ class Library {
     }
 }
 
-class Book1{
+class Book{
     constructor(id,title,author,pages,read){
         this.id = id;
         this.title = title;
@@ -38,11 +38,10 @@ class Book1{
 const LibraryHandler = (function () {
     const library = new Library();
 
-    const addBooktoLibrary2 = (form) => {
+    const addBooktoLibrary = (form) => {
         const id = crypto.randomUUID();
         const title = form.title.value.trim();
         const author = form.author.value.trim();
-        const pagesStr = form.pages.value.trim();
         const pages = Number(form.pages.value);
         const read = form["read-status"].value === 'read' ? true : false;
 
@@ -50,24 +49,24 @@ const LibraryHandler = (function () {
             alert('Please fill in all fields.');
             return;
         }
-        const newBook = new Book1(id, title, author, pages, read);
+        const newBook = new Book(id, title, author, pages, read);
         library.addBook(newBook);
     };
 
-    const addPreBooktoLibrary2 = (title,author,pages,read) => {
+    const addPreBookToLibrary = (title,author,pages,read) => {
         const id = crypto.randomUUID();
-        const newBook = new Book1(id, title, author, pages, read);
+        const newBook = new Book(id, title, author, pages, read);
         library.addBook(newBook);
     }
 
-    const removeBookFromLibrary2 = (bookContainer,button) => {
+    const removeBookFromLibrary = (button) => {
         const bookCard = button.parentElement;
         const bookId = bookCard.getAttribute('data-id');
         bookCard.classList.add('removed');
         library.removeBook(bookId);
     };
 
-    const displayLibrary2 = (bookContainer) => {
+    const displayLibrary = (bookContainer) => {
         const books = library.getBooks;
         bookContainer.innerHTML = '';
         books.forEach((book) => {
@@ -86,18 +85,18 @@ const LibraryHandler = (function () {
         });
     };
 
-    const toggleReadStatusInLibrary2 = (bookContainer, readButton) => {
+    const toggleReadStatusInLibrary = (readButton) => {
         const bookCard = readButton.parentElement;
         const bookId = bookCard.getAttribute('data-id');
         library.toggleReadStatus = bookId;
     };
     
     return {
-        addBooktoLibrary2,
-        addPreBooktoLibrary2,
-        removeBookFromLibrary2,
-        displayLibrary2,
-        toggleReadStatusInLibrary2
+        addBooktoLibrary,
+        addPreBookToLibrary,
+        removeBookFromLibrary,
+        displayLibrary,
+        toggleReadStatusInLibrary
     };
 })();
 
@@ -117,17 +116,17 @@ const UIHandler = (function () {
 
     };
 
-    const bookAdderButtonHandler2 = () => {
+    const bookAdderHandler = () => {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
-            LibraryHandler.addBooktoLibrary2(form);
-            LibraryHandler.displayLibrary2(bookContainer);
+            LibraryHandler.addBooktoLibrary(form);
+            LibraryHandler.displayLibrary(bookContainer);
             form.reset();
             dialog.close();
         });
     };
 
-    const dialogToggleHandler2 = () => {
+    const dialogToggleHandler = () => {
         addButton.addEventListener('click', () => {
             dialog.showModal();
         });
@@ -137,42 +136,42 @@ const UIHandler = (function () {
         });
     };
 
-    const removeBookHandler2 = (target) => {
-        LibraryHandler.removeBookFromLibrary2(bookContainer,target);
-        LibraryHandler.displayLibrary2(bookContainer);
+    const removeBookHandler = (target) => {
+        LibraryHandler.removeBookFromLibrary(target);
+        LibraryHandler.displayLibrary(bookContainer);
     };
 
-    const toggleReadStatusHandler2 = (target) => {
-        LibraryHandler.toggleReadStatusInLibrary2(bookContainer,target);
-        LibraryHandler.displayLibrary2(bookContainer);
+    const toggleReadHandler = (target) => {
+        LibraryHandler.toggleReadStatusInLibrary(target);
+        LibraryHandler.displayLibrary(bookContainer);
     };
 
     const bookContainerHandler = () => {
         bookContainer.addEventListener('click', (e) => {
             if(e.target.classList.contains('remove-button')){
-                removeBookHandler2(e.target);
+                removeBookHandler(e.target);
             }
             if(e.target.classList.contains('toggle-read-button')){
-                toggleReadStatusHandler2(e.target);
+                toggleReadHandler(e.target);
             }
         });
     };
 
     const displayInitialBooks = () => {
-        LibraryHandler.addPreBooktoLibrary2("The Hobbit", "J.R.R. Tolkien", 310, true);
-        LibraryHandler.addPreBooktoLibrary2("1984", "George Orwell", 328, false);
-        LibraryHandler.addPreBooktoLibrary2("To Kill a Mockingbird", "Harper Lee", 281, true);
-        LibraryHandler.addPreBooktoLibrary2("Pride and Prejudice", "Jane Austen", 279, false);
-        LibraryHandler.addPreBooktoLibrary2("The Great Gatsby", "F. Scott Fitzgerald", 180, true);
-        LibraryHandler.addPreBooktoLibrary2("Moby Dick", "Herman Melville", 635, false);
-        LibraryHandler.displayLibrary2(bookContainer);
+        LibraryHandler.addPreBookToLibrary("The Hobbit", "J.R.R. Tolkien", 310, true);
+        LibraryHandler.addPreBookToLibrary("1984", "George Orwell", 328, false);
+        LibraryHandler.addPreBookToLibrary("To Kill a Mockingbird", "Harper Lee", 281, true);
+        LibraryHandler.addPreBookToLibrary("Pride and Prejudice", "Jane Austen", 279, false);
+        LibraryHandler.addPreBookToLibrary("The Great Gatsby", "F. Scott Fitzgerald", 180, true);
+        LibraryHandler.addPreBookToLibrary("Moby Dick", "Herman Melville", 635, false);
+        LibraryHandler.displayLibrary(bookContainer);
     };
 
     const init = () => {
         DOMHandler();
         displayInitialBooks();
-        dialogToggleHandler2();
-        bookAdderButtonHandler2();
+        dialogToggleHandler();
+        bookAdderHandler();
         bookContainerHandler();
     }
 
