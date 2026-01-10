@@ -2,8 +2,10 @@
 
 A simple **Library application** built using **HTML, CSS, and JavaScript** as part of *The Odin Project* curriculum.  
 This project allows users to add, display, remove, and update books dynamically using a clean, Object oriented approach.
-Version 2.0
+
 ---
+
+## Version 2.0
 
 ## 🚀 Features
 
